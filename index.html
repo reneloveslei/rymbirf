@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RYM'S 20th BIRTHDAY BASH</title>
+
+<style>
+  :root {
+    --primary-pink: #ff85a2;
+    --soft-blue: #d9f7ff;
+    --accent-gold: #ffd700;
+  }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffd6ec 0%, #d9f7ff 100%);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .heart-bg {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 20px;
+    z-index: 0;
+    animation: floatUp 10s linear infinite;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+
+  h1 {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(255, 77, 166, 0.4);
+    letter-spacing: 3px;
+    font-size: 1.8rem;
+    z-index: 10;
+  }
+
+  #cake-container {
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+  }
+
+  #cake-emoji { font-size: 150px; line-height: 1; }
+
+  #cake-number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -10%);
+    font-size: 45px;
+    font-weight: 900;
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 77, 166, 0.8);
+    pointer-events: none;
+  }
+
+  .bite { transform: scale(0.9) rotate(5deg) !important; }
+
+  #final {
+    display: none;
+    opacity: 0;
+    width: 90%;
+    max-width: 650px;
+    z-index: 20;
+    transition: opacity 1.5s ease;
+  }
+
+  .content-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 30px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #final img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+  }
+
+  #wish {
+    width: 100%;
+    height: 350px;
+    color: #444;
+    line-height: 1.8;
+    font-size: 15px;
+    overflow-y: auto;
+    text-align: left;
+  }
+
+  #wish::-webkit-scrollbar { width: 5px; }
+  #wish::-webkit-scrollbar-thumb { background: var(--primary-pink); border-radius: 10px; }
+
+  #cursor {
+    display: inline-block;
+    width: 8px;
+    height: 15px;
+    background: var(--primary-pink);
+    margin-left: 2px;
+    animation: blink 0.7s infinite;
+  }
+
+  @keyframes blink { 50% { opacity: 0; } }
+</style>
+</head>
+
+<body>
+
+<h1 id="title">HAPPY 20TH BIRTHDAY MY BABY :3 ✨</h1>
+
+<div id="heart-container"></div>
+
+<div id="cake-container">
+  <div id="cake-emoji">🎂</div>
+  <div id="cake-number">1</div>
+</div>
+
+<div id="final">
+  <div class="content-card">
+    <img src="image.jpg" alt="Ria">
+    <div id="wish"></div>
+    <span id="cursor"></span>
+  </div>
+  
+  <audio id="music" src="music.mp3" preload="auto"></audio>
+  <audio id="popSound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"></audio>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+  const heartContainer = document.getElementById('heart-container');
+  const symbols = ['❤️', '💖', '✨', '🌸'];
+  for (let i = 0; i < 15; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart-bg';
+    heart.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    heart.style.animationDelay = Math.random() * 5 + 's';
+    heartContainer.appendChild(heart);
+  }
+
+  let age = 1;
+  const maxAge = 21;
+  const cakeContainer = document.getElementById("cake-container");
+  const cakeEmoji = document.getElementById("cake-emoji");
+  const cakeNumber = document.getElementById("cake-number");
+  const final = document.getElementById("final");
+  const wish = document.getElementById("wish");
+  const cursor = document.getElementById("cursor");
+  const music = document.getElementById("music");
+  const title = document.getElementById("title");
+
+  const message = `been staring at this for so long cuz i just have so many things i wanna say to you and idk no starting point feels like how i wanted it to sound... but pls know just how much you’ve become important to me these past 9 months :) tbh i really think we got so much closer and very very comfortable with each other this year and it’s not a bad thing, im extremely happy and it doesn’t even feel that long (?) it’s like you’ve been part of my life for a while and in a much deeper way than i ever expected.
+
+im really so grateful i got to meet and know someone like you here bc you have become such a comforting and special person to me in ways i probably don’t say enough.. like everytime we talk even if it’s been a while or just random things, you always make everything feel lighter and warmer and i think that’s such a rare thing someone could have.
+
+out of all the people in the world, i absolutely have such a soft spot for kind and sweet people bc i genuinely think not many people are like that here unfortunately. so i really appreciate how you are always so kind, sweet to me, everyone else and just know how to make it comfortable for everyone. like srsly u have the kindest heart ever, i know u care deeply and u always listen :) just wanna let u know that i can feel ur warmth even thru a screen... like i really admire u rym and i hope u receive the same love u give to everyone every single day.
+
+ik turning 20 has been giving u mixed feelings, but honestly i hope u don’t feel like u need to have everything figured out just bc the front number changed now. it’s easy to feel pressured when everyone around seems like they know what they’re doing but genuinely nobody has life perfectly together at this age, even me. you, me, we’re still growing and learning about ourselves and we’re still slowly becoming the person we’re meant to be and that’s ok :)
+
+my one wish is that i hope u don’t spend too much time being afraid of the future that u forget to be proud of how far you’ve come. u made it thru so many difficult days and you’re doing better than u think u are. i wish u could see urself how i see u.
+
+like even if sometimes life feels uncertain, i hope u remember growing up doesn’t mean losing urself to become perfect overnight. you’re allowed to feel confused sometimes and just rest.. 20 is just another year of ur life and i hope this one’s softer to u, gives u more peace and confidence in urself and more reasons to smile and ur heart feels calm always.
+
+i pray this year brings u so many more beautiful things, laugh more, stress less, sleep better, meet good people, eat delish food and just know that life is okay. i pray the things that have been weighing on ur heart slowly get lighter and when u look back u realize how much happiness u deserve.
+
+thank u for being u, rym.. i really dk how to say this in words but ur presence is just so comforting even when i don’t say much sometimes... im always so grateful i have u, you’re such a lovely person and i hope u never forget that. u give me another reason to be excited about life :)
+
+i really appreciate our bond sm you’ve left such a meaningful impact on me and i’ll always treasure that. knowing u.. becoming close w u is one thing that i’ll never take for granted... i hope u spend today knowing you are loved a lot more than you think. nobody deserves it more than you do. i hope u enjoy ur birthday trip my baby :3 eat lots of delish food, and another thing is i pray u to always stay healthy and stay happy <3 and happy birthday rym i love you lots and i’m really thankful for you always.. thank you for wanting to be friends with me, and not just that, you're a really good friend too <3 i pray for you already, and may allah swt makes it easier for us to see each other in the future... i love you so much happy birthday!!`;
+
+  function typeText() {
+    let charIndex = 0;
+    function internalTyping() {
+      if (charIndex < message.length) {
+        wish.innerHTML += message[charIndex];
+        charIndex++;
+        wish.scrollTop = wish.scrollHeight;
+        setTimeout(internalTyping, 25);
+      } else {
+        cursor.style.display = "none";
+      }
+    }
+    internalTyping();
+  }
+
+  function burstConfetti() {
+    const end = Date.now() + 3000;
+    (function frame() {
+      confetti({ particleCount: 5, spread: 70, origin: { x: Math.random(), y: 0.5 }, colors: ['#ff85a2', '#ffd700', '#ffffff'] });
+      if (Date.now() < end) requestAnimationFrame(frame);
+    })();
+  }
+
+  cakeContainer.onclick = () => {
+    if (age === 1) {
+      music.play().then(() => {
+        music.pause();
+        music.currentTime = 0;
+      }).catch(e => console.log("Audio waiting..."));
+    }
+
+    if (age < maxAge) {
+      age++;
+      cakeNumber.innerText = age;
+      if (age > 10) cakeEmoji.innerText = "🍰";
+      cakeContainer.classList.add("bite");
+      setTimeout(() => cakeContainer.classList.remove("bite"), 150);
+    } else {
+      document.getElementById("popSound").play().catch(() => {});
+      cakeContainer.style.transform = "scale(0)";
+      cakeContainer.style.opacity = "0";
+      title.style.opacity = "0";
+      burstConfetti();
+
+      setTimeout(() => {
+        cakeContainer.style.display = "none";
+        final.style.display = "block";
+        setTimeout(() => {
+          final.style.opacity = "1";
+          music.play().catch(e => console.log("Music error:", e));
+          typeText();
+        }, 500);
+      }, 800);
+    }
+  };
+</script>
+
+</body>
+</html>
